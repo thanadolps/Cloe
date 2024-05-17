@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 from PyQt5.QtCore import QPoint, QRect, QSize, QThreadPool, QTimer, Qt, pyqtSlot
 from PyQt5.QtGui import QCursor, QPixmap
 from PyQt5.QtWidgets import QApplication, QGraphicsView, QLabel, QWidget
+from PyQt5.QtCore import QSize
 
 from components.misc import RubberBand
 from components.services import BaseWorker
@@ -50,19 +51,29 @@ class BaseOCRView(QGraphicsView):
         self.pixmap = QPixmap()
 
         self.activeScreenIndex = 0
+        self.updateViewSize()
 
     # ------------------------------------ Screen ----------------------------------- #
+
+    def updateViewSize(self):
+        screen_index = self.activeScreenIndex
+        screen = QApplication.screens()[screen_index]
+        screen_size = screen.size()
+        self.setFixedSize(screen_size)
+        self.setSceneRect(0, 0, screen_size.width(), screen_size.height())
 
     def getActiveScreenIndex(self):
         cursor = QCursor.pos()
         index = QApplication.desktop().screenNumber(cursor)
         self.activeScreenIndex = index
+        self.updateViewSize()
         return index
 
     def captureScreen(self, index: int):
         screen = QApplication.screens()[index]
         s = screen.size()
         self.pixmap = screen.grabWindow(0).scaled(s.width(), s.height())
+        self.updateViewSize()
 
     @pyqtSlot()
     def rubberBandStopped(self):
