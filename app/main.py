@@ -22,11 +22,10 @@ import sys
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication
 
-from components.windows import SystemTray
-from utils.constants import APP_LOGO, APP_NAME, STYLESHEET_DEFAULT
+from app.components.windows import SystemTray
+from app.utils.constants import APP_LOGO, APP_NAME, STYLESHEET_DEFAULT
 
 if __name__ == "__main__":
-
     app = QApplication(sys.argv)
     app.setApplicationName(APP_NAME)
     app.setWindowIcon(QIcon(APP_LOGO))

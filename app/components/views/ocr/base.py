@@ -22,9 +22,9 @@ from PyQt5.QtGui import QCursor, QPixmap
 from PyQt5.QtWidgets import QApplication, QGraphicsView, QLabel, QWidget
 from PyQt5.QtCore import QSize
 
-from components.misc import RubberBand
-from components.services import BaseWorker
-from utils.scripts import logText, pixmapToText
+from app.components.misc import RubberBand
+from app.components.services import BaseWorker
+from app.utils.scripts import logText, pixmapToText
 
 
 class BaseOCRView(QGraphicsView):
